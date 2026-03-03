@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Math Score Predictor</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1f4037, #99f2c8);
+    }
+
+    .container {
+        width: 420px;
+        padding: 35px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+
+    .container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    label {
+        font-size: 14px;
+        margin-top: 12px;
+        display: block;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 14px;
+    }
+
+    select option {
+        color: black;
+    }
+
+    input::placeholder {
+        color: #eee;
+    }
+
+    select:focus, input:focus {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        background: linear-gradient(45deg, #ff512f, #dd2476);
+        color: white;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .result {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        background: rgba(0,0,0,0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            width: 90%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Math Score Predictor</h2>
+
+    <form action="{{url_for('predict_datapoints')}}" method="POST">
+
+        <label>Gender</label>
+        <select name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label>Race / Ethnicity</label>
+        <select name="race_ethnicity" required>
+            <option value="group A">Group A</option>
+            <option value="group B">Group B</option>
+            <option value="group C">Group C</option>
+            <option value="group D">Group D</option>
+            <option value="group E">Group E</option>
+        </select>
+
+        <label>Parental Level of Education</label>
+        <select name="parental_level_of_education" required>
+            <option value="bachelor's degree">Bachelor's Degree</option>
+            <option value="some college">Some College</option>
+            <option value="master's degree">Master's Degree</option>
+            <option value="associate's degree">Associate's Degree</option>
+            <option value="high school">High School</option>
+        </select>
+
+        <label>Lunch</label>
+        <select name="lunch" required>
+            <option value="standard">Standard</option>
+            <option value="free/reduced">Free/Reduced</option>
+        </select>
+
+        <label>Test Preparation Course</label>
+        <select name="test_preparation_course" required>
+            <option value="completed">Completed</option>
+            <option value="none">Not Completed</option>
+        </select>
+
+        <label>Reading Score</label>
+        <input type="number" name="reading_score" min="0" max="100" required>
+
+        <label>Writing Score</label>
+        <input type="number" name="writing_score" min="0" max="100" required>
+
+        <button type="submit">Predict Math Score</button>
+
+    </form>
+
+  {% if results %}
+    <div class="result">
+        Predicted Math Score: <strong>{{ results }}</strong>
+    </div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
